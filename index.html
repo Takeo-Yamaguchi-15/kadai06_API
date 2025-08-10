@@ -1,0 +1,133 @@
+<!DOCTYPE html> <!-- HTML5宣言による標準モード指定 -->
+<html lang="ja"> <!-- 文書言語を日本語に指定 -->
+<head> <!-- 文書のメタ情報セクション -->
+  <meta charset="UTF-8" /> <!-- 文字エンコーディングの宣言（UTF-8） -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- モバイル対応のビューポート設定 -->
+  <title>絶版本・無料本文ハンター</title> <!-- ブラウザタブに表示するタイトル -->
+  <link rel="stylesheet" href="./styles.css" /> <!-- 外部スタイルシートの読み込み -->
+</head>
+<body> <!-- 文書本体セクションの開始 -->
+  <header class="site-header"> <!-- サイト共通ヘッダー領域 -->
+    <h1>絶版本・無料本文ハンター</h1> <!-- アプリ名の見出し -->
+    <p class="subtitle">free/full/partial を横断検索して入手先リンクを集約</p> <!-- アプリ機能の要約表示 -->
+  </header>
+
+  <main class="container"> <!-- メインコンテンツ領域（二段レイアウトのコンテナ） -->
+    <section class="search-panel"> <!-- 検索パネル領域 -->
+      <form id="searchForm"> <!-- 検索フォームの定義 -->
+        <div class="field"> <!-- 入力フィールドのラッパー -->
+          <label for="q">キーワード</label> <!-- 検索語入力欄のラベル -->
+          <input id="q" name="q" type="text" placeholder="例）吾輩は猫である / 明治文学 / 材料工学 など" /> <!-- 検索語入力欄の本体 -->
+        </div>
+
+        <div class="field two-col"> <!-- 二列配置の入力群の開始 -->
+          <div> <!-- 左列の入力ブロック -->
+            <label for="subject">ジャンル（subject）</label> <!-- subject演算子の入力ラベル -->
+            <input id="subject" name="subject" type="text" placeholder="例）Fiction, Technology, History" /> <!-- subject条件の入力欄 -->
+          </div>
+          <div> <!-- 右列の入力ブロック -->
+            <label for="publisher">出版社（inpublisher）</label> <!-- inpublisher演算子の入力ラベル -->
+            <input id="publisher" name="publisher" type="text" placeholder="例）岩波書店 / Iwanami Shoten" /> <!-- 出版社条件の入力欄 -->
+          </div>
+        </div>
+
+        <div class="field two-col"> <!-- 公開状態と並び順の入力群 -->
+          <div> <!-- 公開状態の選択ブロック -->
+            <label for="filter">公開状態（filter）</label> <!-- filterパラメータのラベル -->
+            <select id="filter" name="filter"> <!-- filterパラメータの選択欄 -->
+              <option value="">指定なし</option> <!-- 絞り込みなしの選択肢 -->
+              <option value="free-ebooks" selected>free-ebooks（無料）</option> <!-- 無料配信本の選択肢 -->
+              <option value="full">full（全文閲覧可）</option> <!-- 全文閲覧可能本の選択肢 -->
+              <option value="partial">partial（部分閲覧可）</option> <!-- 部分閲覧可能本の選択肢 -->
+            </select>
+          </div>
+          <div> <!-- 並び順の選択ブロック -->
+            <label for="orderBy">並び順</label> <!-- orderByパラメータのラベル -->
+            <select id="orderBy" name="orderBy"> <!-- orderByパラメータの選択欄 -->
+              <option value="relevance" selected>関連度</option> <!-- 関連度順の選択肢 -->
+              <option value="newest">新しい順</option> <!-- 新着順の選択肢 -->
+            </select>
+          </div>
+        </div>
+
+        <div class="field two-col"> <!-- 言語と件数の入力群 -->
+          <div> <!-- 言語の選択ブロック -->
+            <label for="lang">言語</label> <!-- langRestrictパラメータのラベル -->
+            <select id="lang" name="lang"> <!-- langRestrictパラメータの選択欄 -->
+              <option value="">すべて</option> <!-- 言語制限なしの選択肢 -->
+              <option value="ja" selected>日本語</option> <!-- 日本語のみの選択肢 -->
+              <option value="en">English</option> <!-- 英語のみの選択肢 -->
+              <option value="fr">Français</option> <!-- フランス語のみの選択肢 -->
+              <option value="de">Deutsch</option> <!-- ドイツ語のみの選択肢 -->
+              <option value="zh">中文</option> <!-- 中国語のみの選択肢 -->
+            </select>
+          </div>
+          <div> <!-- 件数の選択ブロック -->
+            <label for="maxResults">1ページの件数</label> <!-- maxResultsパラメータのラベル -->
+            <select id="maxResults" name="maxResults"> <!-- maxResultsパラメータの選択欄 -->
+              <option value="10">10</option> <!-- 1ページ10件の選択肢 -->
+              <option value="20" selected>20</option> <!-- 1ページ20件の選択肢 -->
+              <option value="30">30</option> <!-- 1ページ30件の選択肢 -->
+              <option value="40">40（最大）</option> <!-- 1ページ40件の選択肢 -->
+            </select>
+          </div>
+        </div>
+
+        <details class="field"> <!-- 詳細オプション開閉ブロック -->
+          <summary>詳細オプション</summary> <!-- 詳細設定の見出し -->
+          <div class="field two-col"> <!-- 詳細オプションの二列配置 -->
+            <div> <!-- ダウンロード条件の入力ブロック -->
+              <label for="download">ダウンロード（任意）</label> <!-- downloadパラメータのラベル -->
+              <select id="download" name="download"> <!-- downloadパラメータの選択欄 -->
+                <option value="">指定なし</option> <!-- ダウンロード条件なしの選択肢 -->
+                <option value="epub">EPUBがあるもの</option> <!-- EPUB入手可の選択肢 -->
+              </select>
+            </div>
+            <div> <!-- 種別の選択ブロック -->
+              <label for="printType">種別</label> <!-- printTypeパラメータのラベル -->
+              <select id="printType" name="printType"> <!-- printTypeパラメータの選択欄 -->
+                <option value="books" selected>Books</option> <!-- 書籍のみの選択肢 -->
+                <option value="magazines">Magazines</option> <!-- 雑誌のみの選択肢 -->
+                <option value="all">All</option> <!-- 書籍と雑誌の両方の選択肢 -->
+              </select>
+            </div>
+          </div>
+        </details>
+
+        <div class="actions"> <!-- フォーム操作ボタンの領域 -->
+          <button type="submit" class="btn primary">検索</button> <!-- 送信ボタンの配置 -->
+          <button id="clearBtn" type="button" class="btn">クリア</button> <!-- 入力リセットボタンの配置 -->
+        </div>
+      </form>
+      <p class="note">※ APIキーはなくても検索できますが、配布時は Google Cloud で Books API を有効化し、HTTPリファラでドメイン制限してください。</p> <!-- APIキー運用に関する注意書き -->
+    </section>
+
+    <section class="results-panel"> <!-- 検索結果パネル領域 -->
+      <div id="statusBar" class="status"></div> <!-- ステータス表示領域（進行状況やエラー表示） -->
+      <div id="results" class="grid"></div> <!-- 検索結果カードのグリッド表示領域 -->
+
+      <div class="pager"> <!-- ページャ領域 -->
+        <button id="prevBtn" class="btn" disabled>前へ</button> <!-- 前ページボタンの配置 -->
+        <span id="pageInfo" class="page-info"></span> <!-- 現在ページ情報の表示 -->
+        <button id="nextBtn" class="btn" disabled>次へ</button> <!-- 次ページボタンの配置 -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"> <!-- サイト共通フッター領域 -->
+    <small>
+      データ提供: Google Books API / このツールは非公式です。 <!-- データソース表記 -->
+      Read / Preview は Google Books の各リンクをご利用ください。 <!-- 閲覧方法の案内 -->
+    </small>
+  </footer>
+
+  <!-- 設定（APIキーは空でOK。使う場合はリファラ制限を必ず設定） -->
+  <script> <!-- 設定スクリプトブロックの開始 -->
+    window.FBH_CONFIG = { 
+        // <!-- グローバル設定オブジェクトの定義 -->
+      API_KEY: "" // ここに API キーを入れる <!-- APIキー設定欄（空で可） -->
+    };
+  </script> <!-- 設定スクリプトブロックの終了 -->
+  <script src="./app.js"></script> <!-- アプリ本体のJavaScript読み込み -->
+</body>
+</html>
