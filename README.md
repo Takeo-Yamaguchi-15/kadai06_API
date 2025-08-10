@@ -5,7 +5,7 @@
 絶版本・無料本をgoogle books APIを使って探すアプリ
 
 ## ③アプリのデプロイURL
-
+https://takeo-yamaguchi-15.github.io/kadai06_API/
 
 ## ④アプリのログイン用IDまたはPassword（ある場合）
 なし
